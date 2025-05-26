@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Detalhes do Produto: ' + ${produto.nome}">Detalhes do Produto</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <a href="/produtos" class="button is-light mb-4">&larr; Voltar para a lista</a>
+
+        <div class="box">
+            <h1 class="title" th:text="${produto.nome}">Nome do Produto</h1>
+            <p><strong>Descrição:</strong> <span th:text="${produto.descricao}">Descrição</span></p>
+            <p><strong>Preço:</strong> R$ <span th:text="${produto.preco}">0.00</span></p>
+        </div>
+
+        <div class="box">
+            <h2 class="subtitle">Avaliações</h2>
+            <table class="table is-striped is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Estrelas</th>
+                        <th>Comentário</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="avaliacao : ${avaliacoes}">
+                        <td>
+                            <span th:text="${avaliacao.estrelas} + ' ⭐'">5 ⭐</span>
+                        </td>
+                        <td th:text="${avaliacao.comentario}">Ótimo produto!</td>
+                    </tr>
+                    <tr th:if="${avaliacoes == null or #lists.isEmpty(avaliacoes)}">
+                        <td colspan="2">Nenhuma avaliação ainda.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="box">
+            <h2 class="subtitle">Deixar uma avaliação</h2>
+            <form th:action="@{|/produto/${produto.id}/avaliar|}" method="post">
+                <div class="field">
+                    <label class="label" for="comentario">Comentário:</label>
+                    <div class="control">
+                        <textarea class="textarea" id="comentario" name="comentario" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="estrelas">Estrelas:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="estrelas" name="estrelas" required>
+                                <option value="1">1 ⭐</option>
+                                <option value="2">2 ⭐</option>
+                                <option value="3">3 ⭐</option>
+                                <option value="4">4 ⭐</option>
+                                <option value="5">5 ⭐</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">Enviar avaliação</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

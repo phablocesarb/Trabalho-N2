@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Avaliação de Produtos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css" rel="stylesheet">
+</head>
+<body>
+<div></div>
+<div class="container mt-4">
+    <h1>Produtos Disponíveis</h1>
+    <ul class="list-group">
+        <li class="list-group-item" th:each="produto : ${produtos}">
+            <a th:href="@{'/produto/' + ${produto.id}}" th:text="${produto.nome}"></a> - <span th:text="${produto.loja}"></span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
