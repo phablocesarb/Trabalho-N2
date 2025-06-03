@@ -1,19 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Avaliação de Produtos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css" rel="stylesheet">
+    <title>Home | Avaliação de Produtos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
 </head>
 <body>
-<div></div>
-<div class="container mt-4">
-    <h1>Produtos Disponíveis</h1>
-    <ul class="list-group">
-        <li class="list-group-item" th:each="produto : ${produtos}">
-            <a th:href="@{'/produto/' + ${produto.id}}" th:text="${produto.nome}"></a> - <span th:text="${produto.loja}"></span>
-        </li>
-    </ul>
-</div>
+<!-- Hero Section -->
+<section class="hero is-primary is-medium">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <h1 class="title">
+                Avaliação de Produtos
+            </h1>
+            <h2 class="subtitle">
+                Descubra, avalie e compartilhe suas opiniões sobre nossos produtos!
+            </h2>
+            <a href="/produtos" class="button is-light is-large mt-4">Ver todos os produtos</a>
+        </div>
+    </div>
+</section>
+
+<!-- Produtos Disponíveis -->
+<section class="section">
+    <div class="container">
+        <h2 class="title is-3 has-text-centered">Produtos Disponíveis</h2>
+        <div class="columns is-multiline">
+            <!-- Caso não haja produtos -->
+            <div class="column is-12" th:if="${produtos == null or #lists.isEmpty(produtos)}">
+                <p class="has-text-centered">Nenhum produto cadastrado ainda.</p>
+            </div>
+            <!-- Loop de produtos -->
+            <div class="column is-4" th:each="produto : ${produtos}">
+                <div class="card">
+                    <div class="card-image" th:if="${produto.imagem != null}">
+                        <figure class="image is-4by3">
+                            <img th:src="@{/imagens/{filename}(filename=${produto.imagem})}" th:alt="'Imagem de ' + ${produto.nome}">
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <p class="title is-5" th:text="${produto.nome}">Nome do Produto</p>
+                        <p class="subtitle is-6" th:text="'R$ ' + ${produto.preco}">Preço</p>
+                        <p th:text="${produto.descricao}">Descrição</p>
+                    </div>
+                    <div class="card-footer">
+                        <a th:href="@{|/produto/${produto.id}|}" class="card-footer-item has-text-info">Ver avaliações</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Botão para lista completa -->
+        <div class="has-text-centered mt-5">
+            <a href="/produtos" class="button is-primary is-medium">Ver lista completa de produtos</a>
+        </div>
+    </div>
+</section>
+
 </body>
 </html>

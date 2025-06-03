@@ -19,6 +19,13 @@ public class ProdutoController {
     @Autowired
     private AvaliacaoRepository avaliacaoRepo;
 
+    @GetMapping("/")
+    public String home(Model model) {
+    List<Produto> produtos = produtoRepo.findAll();
+    model.addAttribute("produtos", produtos);
+    return "index";
+}
+
     @GetMapping("/produtos")
     public String listarProdutos(Model model) {
         List<Produto> produtos = produtoRepo.findAll();
