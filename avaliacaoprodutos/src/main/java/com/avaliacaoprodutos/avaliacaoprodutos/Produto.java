@@ -19,6 +19,15 @@ public class Produto {
     private String nome;
     private String descricao;
     private double preco;
+    private String imagem;
+
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
     private List<Avaliacao> avaliacoes = new ArrayList<>();

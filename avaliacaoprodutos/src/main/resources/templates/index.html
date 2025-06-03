@@ -26,10 +26,12 @@
     <div class="container">
         <h2 class="title is-3 has-text-centered">Produtos Disponíveis</h2>
         <div class="columns is-multiline">
+
             <!-- Caso não haja produtos -->
-            <div class="column is-12" th:if="${produtos == null or #lists.isEmpty(produtos)}">
+            <div class="column is-12" th:if="${produtos == null}">
                 <p class="has-text-centered">Nenhum produto cadastrado ainda.</p>
             </div>
+            
             <!-- Loop de produtos -->
             <div class="column is-4" th:each="produto : ${produtos}">
                 <div class="card">
