@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Detalhes do Produto: ' + ${produto.nome}">Detalhes do Produto</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <a href="/produtos" class="button is-light mb-4">&larr; Voltar para a lista</a>
+
+        <div class="box">
+            <h1 class="title" th:text="${produto.nome}">Nome do Produto</h1>
+            <p><strong>Descrição:</strong> <span th:text="${produto.descricao}">Descrição</span></p>
+        </div>
+
+        <div class="box">
+            <h2 class="subtitle">Foto</h2>
+            <form th:action="@{|/upload/${produto.id}|}" method="post"  enctype="multipart/form-data">
+                <div class="field">
+                    <label class="label" for="comentario">Comentário:</label>
+                    <div class="control">
+                        <input type="file" name="image" />
+                    </div>
+                </div>
+                
+                <div class="field">
+                    <div class="control">
+                        <button type="submit" class="button is-primary">Enviar foto</button>
+                    </div>
+                </div>
+            </form>
+            <a class="button is-link is-light is-small" th:href="@{|/produto/${produto.id}|}">
+                Ver detalhes
+            </a>
+            <a class="button is-link is-light is-small" th:href="@{|/upload/${produto.id}|}">
+                Alterar foto
+            </a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

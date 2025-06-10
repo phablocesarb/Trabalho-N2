@@ -37,7 +37,7 @@
                 <div class="card">
                     <div class="card-image" th:if="${produto.imagem != null}">
                         <figure class="image is-4by3">
-                            <img th:src="@{/imagens/{filename}(filename=${produto.imagem})}" th:alt="'Imagem de ' + ${produto.nome}">
+                            <img th:src="@{{filename}(filename=${produto.imagem})}" th:alt="'Imagem de ' + ${produto.nome}">
                         </figure>
                     </div>
                     <div class="card-content">
